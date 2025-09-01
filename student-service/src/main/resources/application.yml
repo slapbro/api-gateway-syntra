@@ -1,0 +1,136 @@
+GATEWAY_BASE_URL: ${GATEWAY_BASE_URL_ENV:http://localhost:8080}
+PAYMENT_SERVICE_KEYCLOAK_BASE_URL: ${KEYCLOAK_BASE_URL:http://localhost:9090}/realms/${PAYMENT_REALM:payment-service}/protocol/openid-connect
+PAYMENT_CLIENT_ID: payment-service
+PAYMENT_CLIENT_SECRET: ${PAYMENT_CLIENT_SECRET_ENV}
+
+spring:
+  application:
+    name: syntra-student-service
+
+  config:
+    import: optional:file:.env[.properties]
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: sa
+    driverClassName: org.h2.Driver
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5673}
+    virtual-host: /
+    connection-timeout: 0
+    template:
+      retry:
+        enabled: true
+        initial-interval: 1000
+        max-attempts: 2
+        max-interval: 3000
+        multiplier: 1
+
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      indent-output: true
+
+  cloud:
+    function:
+      definition: swaggerConsumer
+    #This makes the queue durable so that if the application is down, the messages would still be published.
+    #These are then processed once the application is up again.
+    #Instruction defines exchange and queue names
+    #Dead Letter queue is created automatically and bound to main instruction queue.
+    stream:
+      bindings:
+        studentProducer-out-0:
+          destination: student_events_destination
+          group: student_events_group
+        swaggerConsumer-in-0:
+          destination: swagger_events_destination
+          group: swagger_events_group
+          consumer:
+            maxAttempts: 1
+            concurrency: 1
+      rabbit:
+        bindings:
+          swaggerConsumer-in-0:
+            consumer:
+              exchangeType: fanout
+              autoBindDlq: true
+              requeueRejected: false
+              republishToDlq: true
+              dlqDeadLetterExchange:
+              dlqTtl: 300000
+
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            token-uri: ${PAYMENT_SERVICE_KEYCLOAK_BASE_URL}/token
+            client-id: ${PAYMENT_CLIENT_ID}
+            client-secret: ${PAYMENT_CLIENT_SECRET}
+            authorization-grant-type: client_credentials
+            client-registration-id: ${PAYMENT_CLIENT_ID}
+      resource-server:
+        jwt:
+          issuer-uri: ${PAYMENT_SERVICE_KEYCLOAK_BASE_URL}/realms/${PAYMENT_SERVICE_REALM:${PAYMENT_CLIENT_ID}}
+          jwk-set-uri: ${spring.security.oauth2.resource-server.jwt.issuer-uri}/protocol/openid-connect/certs
+
+server:
+  port: 8081
+
+springdoc:
+  api-docs:
+    path: /student/api-docs
+  swagger-ui:
+    path: /swagger-ui.html # http://localhost:8081/swagger-ui/index.html
+    enabled: true
+
+feign:
+  services:
+    keycloak:
+      log:
+        level: FULL
+
+    payment-client:
+      url: ${GATEWAY_BASE_URL}
+      token-uri: ${PAYMENT_SERVICE_KEYCLOAK_BASE_URL}/token
+      client-id: ${PAYMENT_CLIENT_ID}
+      client-secret: ${PAYMENT_CLIENT_SECRET}
+      authorization-grant-type: client_credentials
+
+    hcaptcha: # https://docs.hcaptcha.com/#integration-testing-test-keys
+      url: ${HCAPTCHA_URL:https://hcaptcha.com}
+      secret: ${HCAPTCHA_SECRET:0x0000000000000000000000000000000000000000}
+      response: ${HCAPTCHA_RESPONSE:10000000-aaaa-bbbb-cccc-000000000001}
+      site-key: ${HCAPTCHA_SITE_KEY:10000000-ffff-ffff-ffff-000000000001} # Optional
+      remote-ip: ${HCAPTCHA_REMOTE_IP:127.0.0.1} # Optional
+      risk-score-threshold: ${HCAPTCHA_RISK_SCORE_THRESHOLD:0.8}
+
+keycloak:
+  client-id: ${PAYMENT_CLIENT_ID}
+  client-secret: ${PAYMENT_CLIENT_SECRET}
+  scope: profile
+  authorization-grant-type: password
+  authorization-uri: ${PAYMENT_SERVICE_KEYCLOAK_BASE_URL}/auth
+  user-info-uri: ${PAYMENT_SERVICE_KEYCLOAK_BASE_URL}/userinfo
+  token-uri: ${PAYMENT_SERVICE_KEYCLOAK_BASE_URL}/token
+  logout-uri: ${PAYMENT_SERVICE_KEYCLOAK_BASE_URL}/logout
+  jwk-set-uri: ${PAYMENT_SERVICE_KEYCLOAK_BASE_URL}/certs
+  certs-id: vdaec4Br3ZnRFtZN-pimK9v1eGd3gL2MHu8rQ6M5SiE
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_CLIENT_SERVICE_URL:http://localhost:8761/eureka}

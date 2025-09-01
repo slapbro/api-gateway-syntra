@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(for service in api-gateway student-service payment-service openai-service service-registry spring-config-server swagger-application)",
+      "Bash(do echo \"Cleaning up $service\")",
+      "Bash(if [ -d \"$service/src/main/java/com/mb\" ])",
+      "Bash(echo:*)",
+      "Bash(fi)",
+      "Bash(if [ -d \"$service/src/test/java/com/mb\" ])",
+      "Bash(done)",
+      "Bash(do if [ -d \"$service/src/main/java/com\" ])",
+      "Bash(if [ -d \"$service/src/test/java/com\" ])"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
